@@ -3,6 +3,7 @@ function Robot(grid) {
 	this.$grid = grid;
 	this.addListeners();
 	this.directions = ['up', 'down', 'left', 'right'];
+	this.direction = 'up';
 }
 
 Robot.prototype.addListeners = function() {
@@ -12,13 +13,15 @@ Robot.prototype.addListeners = function() {
 };
 
 Robot.prototype.draw = function() {
-	this.$grid.find('span').removeClass('active');
+	this.$grid.find('span').removeClass('active direction-up direction-down direction-left direction-right');
 	var cell = this.getCell();
 	cell.addClass('active');
+	cell.addClass('direction-' + this.direction);
 };
 
 Robot.prototype.up = function() {
 	var newPosition = $.extend({}, this.position);
+	this.direction = 'up';
 	newPosition.x--;
 	if (this.canMoveToPosition(newPosition, 'up')) {
 		this.position = newPosition;
@@ -28,6 +31,7 @@ Robot.prototype.up = function() {
 
 Robot.prototype.down = function() {
 	var newPosition = $.extend({}, this.position);
+	this.direction = 'down';
 	newPosition.x++;
 	if (this.canMoveToPosition(newPosition, 'down')) {
 		this.position = newPosition;
@@ -37,6 +41,8 @@ Robot.prototype.down = function() {
 
 Robot.prototype.left = function() {
 	var newPosition = $.extend({}, this.position);
+	this.direction = 'left';
+	newPosition.x++;
 	newPosition.y--;
 	if (this.canMoveToPosition(newPosition, 'left')) {
 		this.position = newPosition;
@@ -46,6 +52,7 @@ Robot.prototype.left = function() {
 
 Robot.prototype.right = function() {
 	var newPosition = $.extend({}, this.position);
+	this.direction = 'right';
 	newPosition.y++;
 	if (this.canMoveToPosition(newPosition, 'right')) {
 		this.position = newPosition;

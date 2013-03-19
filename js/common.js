@@ -13,8 +13,6 @@ $(document).ready(function() {
 	var gridEl;
 	var $commands = $('#commands');
 
-
-
 	function start() {
 		addListeners();
 		draw();
