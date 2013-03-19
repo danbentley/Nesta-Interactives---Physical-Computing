@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
 	var gridCount = 1;
+	var validCommands = ['up', 'down', 'left', 'right'];
 
 	var grid = {
 		dimensions: {
@@ -55,19 +56,18 @@ $(document).ready(function() {
 
 	function executeCommands(commands) {
 
-		var validCommands = ['up', 'down', 'left', 'right'];
 		var intervalId;
 		var index = 0;
 
 		clearInterval(intervalId);
 		intervalId = setInterval(function() {
 			if (!(index in commands)) return;
-			command = commands[index];
+			var command = commands[index];
 			if (validCommands.indexOf(command) > -1) {
 				robot[command]();
 			}
 			index++;
-		}, 1000);
+		}, 500);
 	}
 
 	function draw() {
@@ -92,7 +92,7 @@ $(document).ready(function() {
 
 	function drawMaze() {
 
-		var wallClasses = ['wall-top', 'wall-bottom', 'wall-left', 'wall-right'];
+		var wallClasses = ['wall-up', 'wall-down', 'wall-left', 'wall-right'];
 
 		$('span[id^=grid-]').each(function() {
 			wallClass = wallClasses[Math.floor((Math.random() * 4) + 1)];
