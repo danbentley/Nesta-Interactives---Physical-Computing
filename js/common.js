@@ -1,3 +1,25 @@
+function parseCommandString(commandString) {
+	var commands = commandString.split('\n');
+
+	var newCommands = $.extend({}, commands);
+	$.each(newCommands, function(index, command) {
+		var matches = command.match(/(\w+)\((\d+)\)/);
+		if (matches && matches.length > 2) {
+
+			var matchedCommand = matches[1];
+			var count = matches[2];
+
+			var repeatingCommands = [];
+			for (var i=0; i < count; i++) {
+				var toReplace = (i === 0) ? 1 : 0;
+				commands.splice(index, toReplace, matchedCommand);
+			};
+		}
+	});
+
+	return commands;
+}
+
 $(document).ready(function() {
 
 	var gridCount = 1;
@@ -52,26 +74,6 @@ $(document).ready(function() {
 		});
 	}
 
-	function parseCommandString(commandString) {
-		var commands = commandString.split('\n');
-
-		var newCommands = $.extend({}, commands);
-		$.each(newCommands, function(index, command) {
-			var matches = command.match(/(\w+)\((\d+)\)/);
-			if (matches && matches.length > 2) {
-
-				var matchedCommand = matches[1];
-				var count = matches[2];
-
-				var repeatingCommands = [];
-				for (var i=0; i < count; i++) {
-					commands.splice(index + i, 1, matchedCommand);
-				};
-			}
-		});
-
-		return commands;
-	}
 
 	function executeCommands(commands) {
 
