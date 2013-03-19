@@ -76,16 +76,17 @@ $(document).ready(function() {
 	function executeCommands(commands) {
 
 		var intervalId;
-		var index = 0;
 
 		clearInterval(intervalId);
 		intervalId = setInterval(function() {
-			if (!(index in commands)) return;
-			var command = commands[index];
+			var command = commands.shift();
+			if (commands.length === 0) {
+				clearInterval(intervalId);
+				return;
+			}
 			if (validCommands.indexOf(command) > -1) {
 				robot[command]();
 			}
-			index++;
 		}, 500);
 	}
 
