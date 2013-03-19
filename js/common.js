@@ -45,11 +45,32 @@ $(document).ready(function() {
 
 		$('form#code').on('submit', function(e) {
 
-			var commands = $commands.val().split('\n');
+			var commands = parseCommandString($commands.val())
 			executeCommands(commands);
 
 			e.preventDefault();
 		});
+	}
+
+	function parseCommandString(commandString) {
+		var commands = commandString.split('\n');
+
+		var newCommands = $.extend({}, commands);
+		$.each(newCommands, function(index, command) {
+			var matches = command.match(/(\w+)\((\d+)\)/);
+			if (matches && matches.length > 2) {
+
+				var matchedCommand = matches[1];
+				var count = matches[2];
+
+				var repeatingCommands = [];
+				for (var i=0; i < count; i++) {
+					commands.splice(index + i, 1, matchedCommand);
+				};
+			}
+		});
+
+		return commands;
 	}
 
 	function executeCommands(commands) {
