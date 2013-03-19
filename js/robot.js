@@ -1,9 +1,8 @@
-var robot;
-
 function Robot(grid) {
 	this.position = { x:1, y:1 };
 	this.$grid = grid;
 	this.addListeners();
+	this.directions = ['up', 'down', 'left', 'right'];
 }
 
 Robot.prototype.addListeners = function() {
@@ -19,8 +18,8 @@ Robot.prototype.draw = function() {
 };
 
 Robot.prototype.up = function() {
-	var currentPosition = this.position;
-	newPosition = { x:currentPosition.x--, y:currentPosition.y };
+	var newPosition = $.extend({}, this.position);
+	newPosition.x--;
 	if (this.canMoveToPosition(newPosition, 'up')) {
 		this.position = newPosition;
 		this.draw();
@@ -28,8 +27,8 @@ Robot.prototype.up = function() {
 };
 
 Robot.prototype.down = function() {
-	var currentPosition = this.position;
-	newPosition = { x:currentPosition.x++, y:currentPosition.y};
+	var newPosition = $.extend({}, this.position);
+	newPosition.x++;
 	if (this.canMoveToPosition(newPosition, 'down')) {
 		this.position = newPosition;
 		this.draw();
@@ -37,8 +36,8 @@ Robot.prototype.down = function() {
 };
 
 Robot.prototype.left = function() {
-	var currentPosition = this.position;
-	newPosition = { x:currentPosition.x, y:currentPosition.y--};
+	var newPosition = $.extend({}, this.position);
+	newPosition.y--;
 	if (this.canMoveToPosition(newPosition, 'left')) {
 		this.position = newPosition;
 		this.draw();
@@ -46,8 +45,8 @@ Robot.prototype.left = function() {
 };
 
 Robot.prototype.right = function() {
-	var currentPosition = this.position;
-	newPosition = { x:currentPosition.x, y:currentPosition.y++ };
+	var newPosition = $.extend({}, this.position);
+	newPosition.y++;
 	if (this.canMoveToPosition(newPosition, 'right')) {
 		this.position = newPosition;
 		this.draw();
@@ -64,16 +63,27 @@ Robot.prototype.getCellForPosition = function(position) {
 
 Robot.prototype.canMoveToPosition = function(position, direction) {
 
+	if (position.x < 0 || position.y < 0) return false;
+	if (position.x > 16 || position.y > 16) return false;
+
 	var cell = this.getCell();
-	if (cell.hasClass('wall-right')) {
+	if (cell.hasClass('wall-' + direction)) {
 		return false;
 	}
 
 	var newCell = this.getCellForPosition(position);
-	if (newCell.hasClass('wall-right')) {
+	if (newCell.hasClass('wall-' + this.getOppositeDirection(direction))) {
 		return false;
 	}
 
 	return true;
+}
+
+Robot.prototype.getOppositeDirection = function(direction) {
+	var index = this.directions.indexOf(direction);
+	if (index > 0) {
+		var oppositeDirectionIndex = (index % 2) ? index - 1 : index + 1;
+		return this.directions[oppositeDirectionIndex];
+	}
 }
 
