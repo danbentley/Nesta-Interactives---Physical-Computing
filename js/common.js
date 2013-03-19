@@ -1,3 +1,25 @@
+function parseCommandString(commandString) {
+	var commands = commandString.split('\n');
+
+	var newCommands = $.extend({}, commands);
+	$.each(newCommands, function(index, command) {
+		var matches = command.match(/(\w+)\((\d+)\)/);
+		if (matches && matches.length > 2) {
+
+			var matchedCommand = matches[1];
+			var count = matches[2];
+
+			var repeatingCommands = [];
+			for (var i=0; i < count; i++) {
+				var toReplace = (i === 0) ? 1 : 0;
+				commands.splice(index, toReplace, matchedCommand);
+			};
+		}
+	});
+
+	return commands;
+}
+
 $(document).ready(function() {
 
 	var gridCount = 1;
@@ -45,26 +67,28 @@ $(document).ready(function() {
 
 		$('form#code').on('submit', function(e) {
 
-			var commands = $commands.val().split('\n');
+			var commands = parseCommandString($commands.val())
 			executeCommands(commands);
 
 			e.preventDefault();
 		});
 	}
 
+
 	function executeCommands(commands) {
 
 		var intervalId;
-		var index = 0;
 
 		clearInterval(intervalId);
 		intervalId = setInterval(function() {
-			if (!(index in commands)) return;
-			var command = commands[index];
+			var command = commands.shift();
+			if (commands.length === 0) {
+				clearInterval(intervalId);
+				return;
+			}
 			if (validCommands.indexOf(command) > -1) {
 				robot[command]();
 			}
-			index++;
 		}, 500);
 	}
 
