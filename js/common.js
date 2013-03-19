@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
 	var gridCount = 1;
-	var validCommands = ['up', 'down', 'left', 'right'];
+	var validCommands = ['up', 'down', 'left', 'right', 'move'];
 
 	var grid = {
 		dimensions: {
@@ -12,8 +12,6 @@ $(document).ready(function() {
 
 	var gridEl;
 	var $commands = $('#commands');
-
-
 
 	function start() {
 		addListeners();

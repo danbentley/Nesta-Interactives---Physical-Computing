@@ -3,6 +3,7 @@ function Robot(grid) {
 	this.$grid = grid;
 	this.addListeners();
 	this.directions = ['up', 'down', 'left', 'right'];
+	this.direction = 'up';
 }
 
 Robot.prototype.addListeners = function() {
@@ -12,54 +13,74 @@ Robot.prototype.addListeners = function() {
 };
 
 Robot.prototype.draw = function() {
-	this.$grid.find('span').removeClass('active');
+	this.$grid.find('span').removeClass('active direction-up direction-down direction-left direction-right');
 	var cell = this.getCell();
 	cell.addClass('active');
+	cell.addClass('direction-' + this.direction);
 };
 
-Robot.prototype.up = function() {
-	var newPosition = $.extend({}, this.position);
-	newPosition.x--;
-	if (this.canMoveToPosition(newPosition, 'up')) {
+Robot.prototype.move = function() {
+	var newPosition = this.getPositionForDirection(this.direction);
+	if (this.canMoveToPosition(newPosition, this.direction)) {
 		this.position = newPosition;
 		this.draw();
 	}
+}
+
+Robot.prototype.up = function() {
+	var newPosition = $.extend({}, this.position);
+	this.direction = 'up';
+	this.draw();
 };
 
 Robot.prototype.down = function() {
 	var newPosition = $.extend({}, this.position);
-	newPosition.x++;
-	if (this.canMoveToPosition(newPosition, 'down')) {
-		this.position = newPosition;
-		this.draw();
-	}
+	this.direction = 'down';
+	this.draw();
 };
 
 Robot.prototype.left = function() {
 	var newPosition = $.extend({}, this.position);
-	newPosition.y--;
-	if (this.canMoveToPosition(newPosition, 'left')) {
-		this.position = newPosition;
-		this.draw();
-	}
+	this.direction = 'left';
+	this.draw();
 };
 
 Robot.prototype.right = function() {
 	var newPosition = $.extend({}, this.position);
-	newPosition.y++;
-	if (this.canMoveToPosition(newPosition, 'right')) {
-		this.position = newPosition;
-		this.draw();
-	}
+	this.direction = 'right';
+	this.draw();
 };
 
 Robot.prototype.getCell = function() {
 	return this.getCellForPosition(this.position);
-}
+};
 
 Robot.prototype.getCellForPosition = function(position) {
 	return this.$grid.find('#grid-' + position.x + '-' + position.y);
-}
+};
+
+Robot.prototype.getPositionForDirection = function(direction) {
+
+	var newPosition = $.extend({}, this.position);
+
+	if (direction === 'up') {
+		newPosition.x--;
+	}
+
+	if (direction === 'down') {
+		newPosition.x++;
+	}
+
+	if (direction === 'left') {
+		newPosition.y--;
+	}
+
+	if (direction === 'right') {
+		newPosition.y++;
+	}
+
+	return newPosition;
+};
 
 Robot.prototype.canMoveToPosition = function(position, direction) {
 
