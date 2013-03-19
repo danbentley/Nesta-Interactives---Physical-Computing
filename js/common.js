@@ -92,7 +92,7 @@ $(document).ready(function() {
 
 	function drawMaze() {
 
-		var wallClasses = ['wall-top', 'wall-bottom', 'wall-left', 'wall-right'];
+		var wallClasses = ['wall-up', 'wall-down', 'wall-left', 'wall-right'];
 
 		$('span[id^=grid-]').each(function() {
 			wallClass = wallClasses[Math.floor((Math.random() * 4) + 1)];
