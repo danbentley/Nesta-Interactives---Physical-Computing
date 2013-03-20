@@ -10,6 +10,15 @@ basePath = '';
 files = [
   JASMINE,
   JASMINE_ADAPTER,
+
+  // jasmine-jquery.js
+  {
+    pattern: 'test/fixtures/*.html',
+    watched: true,
+    included: false,
+    served: true
+  },
+  'test/helpers/*.js',
   'js/lib/*.js',
   'js/*.js',
   'test/*.js'
@@ -66,3 +75,4 @@ captureTimeout = 60000;
 // Continuous Integration mode
 // if true, it capture browsers, run tests and exit
 singleRun = false;
+
