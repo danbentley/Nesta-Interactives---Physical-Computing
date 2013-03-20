@@ -73,6 +73,10 @@ Grid.prototype.parseCommandString = function(commandString) {
 	return commands;
 }
 
+Grid.prototype.getCells = function() {
+    return this.$grid.find('[id^=grid-]');
+}
+
 Grid.prototype.executeCommands = function(commands) {
 
 	var intervalId;

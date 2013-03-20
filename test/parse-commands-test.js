@@ -28,15 +28,18 @@ describe('ParseCommands tests', function() {
 
 describe('Robots can move to position', function() {
 
-    var grid = new Grid();
-    var robot = new Robot(grid);
+    var grid = new Grid(),
+        robot = new Robot(grid),
+        directions = ['up', 'down', 'left', 'right'];
+
+    beforeEach(function() {
+        // Maze is randomly created. Ensure that the current cell has no barriers
+        var cells = grid.getCells();
+        cells.removeClass('wall-up wall-down wall-left wall-right');
+        directions = ['up', 'down', 'left', 'right'];
+    });
 
     it('basic boundaries directions', function() {
-
-        // Maze is randomly created. Ensure that the current cell has no barriers
-        var cell = robot.getCell();
-        $(cell).removeClass('wall-up wall-down wall-left wall-right');
-
         var canMoveToPosition = robot.canMoveToPosition({ x: 1, y: 1 }, 'up');
         expect(canMoveToPosition).toBeTruthy();
 
@@ -64,8 +67,36 @@ describe('Robots can move to position', function() {
         expect(canMoveToPosition).toBeFalsy();
     });
 
-    it('Obsticles', function() {
-        var cell = robot.getCell();
-        console.log(cell);
-    });
+    var testCantGoInDirection = function(direction) {
+        it('Shouldn\'t be allowed to go ' + direction, function() {
+            var cell = robot.getCell();
+            $(cell).addClass('wall-' + direction);
+            var canMoveToPosition = robot.canMoveToPosition({ x: 2, y: 2 }, direction);
+            expect(canMoveToPosition).toBeFalsy();
+        });
+    };
+
+    var testCanGoInDirection = function(direction) {
+        it('Should be allowed to go ' + direction, function() {
+            var cell = robot.getCell();
+            $(cell).addClass('wall-' + direction);
+
+            var directionIndex = directions.indexOf(direction);
+            if (directionIndex > -1) {
+                directions.splice(directionIndex, 1);
+            }
+
+            for (var i=0; i < directions.length; i++) {
+                var directionToTest = directions[i];
+                var canMoveToPosition = robot.canMoveToPosition({ x: 2, y: 2 }, directionToTest);
+                expect(canMoveToPosition).toBeTruthy();
+            };
+        });
+    };
+
+    for (var i=0; i < directions.length; i++) {
+        var direction = directions[i];
+        testCantGoInDirection(direction);
+        testCanGoInDirection(direction);
+    };
 });
