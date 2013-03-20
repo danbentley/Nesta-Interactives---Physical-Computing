@@ -1,6 +1,6 @@
 function Robot(grid) {
 	this.position = { x:1, y:1 };
-	this.$grid = grid;
+	this.$grid = grid.$grid;
 	this.addListeners();
 	this.directions = ['up', 'down', 'left', 'right'];
 	this.direction = 'up';
