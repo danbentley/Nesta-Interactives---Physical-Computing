@@ -24,6 +24,34 @@ describe('ParseCommands tests', function() {
         expect(commands.length).toEqual(14);
         expect(commands.indexOf('move(10)')).toBe(-1);
     });
+
+    it('Parse multiple moves', function() {
+        var commandString = 'move(1)\n up\n move(2)\n down\n move(3)\n left\n move(4)\n right';
+        var commands = grid.parseCommandString(commandString);
+        expect(commands.length).toEqual(14);
+
+        // Not sure whether this test works
+        expect(commands.indexOf('move(1)')).toBe(-1);
+        expect(commands.indexOf('move(2)')).toBe(-1);
+        expect(commands.indexOf('move(3)')).toBe(-1);
+        expect(commands.indexOf('move(4)')).toBe(-1);
+        expect(commands).toEqual([
+            'move',
+            'up',
+            'move',
+            'move',
+            'down',
+            'move',
+            'move',
+            'move',
+            'left',
+            'move',
+            'move',
+            'move',
+            'move',
+            'right'
+        ]);
+    });
 });
 
 describe('Robots can move to position', function() {

@@ -1,3 +1,6 @@
+/*Array.prototype.insertArray = function(array, atIndex, shouldReplace) {*/
+
+/*};*/
 
 function Grid(options) {
 	this.gridCount = 1;
@@ -52,25 +55,27 @@ Grid.prototype.addListeners = function() {
 };
 
 Grid.prototype.parseCommandString = function(commandString) {
-	var commands = commandString.split('\n');
 
-	var newCommands = $.extend({}, commands);
-	$.each(newCommands, function(index, command) {
+    var parsedCommands = [];
+
+    var offset = 0;
+	var commands = commandString.split(new RegExp("\\s*\\\n\\s*"));
+	$.each(commands, function(index, command) {
 		var matches = command.match(/(\w+)\((\d+)\)/);
 		if (matches && matches.length > 2) {
 
 			var matchedCommand = matches[1];
 			var count = matches[2];
 
-			var repeatingCommands = [];
 			for (var i=0; i < count; i++) {
-				var toReplace = (i === 0) ? 1 : 0;
-				commands.splice(index, toReplace, matchedCommand);
+                parsedCommands.push(matchedCommand);
 			};
-		}
+		} else {
+            parsedCommands.push(command);
+        }
 	});
 
-	return commands;
+	return parsedCommands;
 }
 
 Grid.prototype.getCells = function() {
