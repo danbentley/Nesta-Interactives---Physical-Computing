@@ -39,6 +39,16 @@ describe('Robots can move to position', function() {
         directions = ['up', 'down', 'left', 'right'];
     });
 
+    if('Cell for position', function() {
+        var fetchedCellUp = robot.getCellForPosition({ x: 1, y: 0 });
+        expect($(fetchedCellUp).attr('id')).toEqual('grid-1-0');
+    });
+
+    if('Start position', function() {
+        var cell = robot.getCell();
+        expect($(cell).attr('id')).toEqual('grid-1-1');
+    });
+
     it('basic boundaries directions', function() {
         var canMoveToPosition = robot.canMoveToPosition({ x: 1, y: 1 }, 'up');
         expect(canMoveToPosition).toBeTruthy();
@@ -99,4 +109,28 @@ describe('Robots can move to position', function() {
         testCantGoInDirection(direction);
         testCanGoInDirection(direction);
     };
+
+    it('Test opposite direction', function() {
+        var oppositeDirection = robot.getOppositeDirection('up');
+        expect(oppositeDirection).toEqual('down');
+
+        var oppositeDirection = robot.getOppositeDirection('down');
+        expect(oppositeDirection).toEqual('up');
+
+        var oppositeDirection = robot.getOppositeDirection('left');
+        expect(oppositeDirection).toEqual('right');
+
+        var oppositeDirection = robot.getOppositeDirection('right');
+        expect(oppositeDirection).toEqual('left');
+    });
+
+    it('Test opposite walls', function() {
+        var cellUp = robot.getCellForPosition({ x: 1, y: 0 });
+        expect(cellUp).not.toBeNull();
+        $(cellUp).addClass('wall-down');
+        expect(cellUp).toHaveClass('wall-down');
+
+        var canMoveToPosition = robot.canMoveToPosition({ x: 1, y: 0 }, 'up');
+        expect(canMoveToPosition).toBeFalsy();
+    });
 });

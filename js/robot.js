@@ -84,27 +84,38 @@ Robot.prototype.getPositionForDirection = function(direction) {
 
 Robot.prototype.canMoveToPosition = function(position, direction) {
 
-	if (position.x < 0 || position.y < 0) return false;
-	if (position.x > 16 || position.y > 16) return false;
+	if (!this.isPositionWithinBounds(position)) return false;
 
 	var cell = this.getCell();
-	if (cell.hasClass('wall-' + direction)) {
+	if (this.doesCellContainWallInDirection(cell, direction)) {
 		return false;
 	}
 
 	var newCell = this.getCellForPosition(position);
-	if (newCell.hasClass('wall-' + this.getOppositeDirection(direction))) {
+	var oppositeDirection = this.getOppositeDirection(direction);
+	if (this.doesCellContainWallInDirection(newCell, oppositeDirection)) {
 		return false;
 	}
 
 	return true;
 }
 
+Robot.prototype.isPositionWithinBounds = function(position) {
+	if (position.x < 0 || position.y < 0) return false;
+	if (position.x > 16 || position.y > 16) return false;
+
+	return true;
+};
+
+Robot.prototype.doesCellContainWallInDirection = function(cell, direction) {
+	return (cell.hasClass('wall-' + direction));
+}
+
 Robot.prototype.getOppositeDirection = function(direction) {
 	var index = this.directions.indexOf(direction);
-	if (index > 0) {
+
+	if (index > -1) {
 		var oppositeDirectionIndex = (index % 2) ? index - 1 : index + 1;
 		return this.directions[oppositeDirectionIndex];
 	}
 }
-
