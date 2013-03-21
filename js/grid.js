@@ -22,25 +22,25 @@ Grid.prototype.start = function() {
 
 Grid.prototype.addListeners = function() {
 
-	$('a.up').on('click', function(e) {
-		$commands.val($commands.val() + 'up\n');
+	$('a.up').on('click', $.proxy(function(e) {
+		this.$commands.val(this.$commands.val() + 'up\n');
 		e.preventDefault();
-	});
+	}, this));
 
-	$('a.down').on('click', function(e) {
-		$commands.val($commands.val() + 'down\n');
+	$('a.down').on('click', $.proxy(function(e) {
+		this.$commands.val(this.$commands.val() + 'down\n');
 		e.preventDefault();
-	});
+	}, this));
 
-	$('a.left').on('click', function(e) {
-		$commands.val($commands.val() + 'left\n');
+	$('a.left').on('click', $.proxy(function(e) {
+		this.$commands.val(this.$commands.val() + 'left\n');
 		e.preventDefault();
-	});
+	}, this));
 
-	$('a.right').on('click', function(e) {
-		$commands.val($commands.val() + 'right\n');
+	$('a.right').on('click', $.proxy(function(e) {
+		this.$commands.val(this.$commands.val() + 'right\n');
 		e.preventDefault();
-	});
+	}, this));
 
 	$('form#code').on('submit', $.proxy(function(e) {
 
