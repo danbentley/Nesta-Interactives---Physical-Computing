@@ -2,7 +2,7 @@
 function Grid(options) {
 	this.gridCount = 1;
 	this.validCommands = ['up', 'down', 'left', 'right', 'move'];
-	this.$gridEl;
+	this.$grid;
 	this.$commands = $('#commands');
 	this.robot;
 	this.dimensions = {
@@ -15,8 +15,8 @@ function Grid(options) {
 Grid.prototype.start = function() {
 	this.addListeners();
 	this.draw();
-	this.$gridEl = $('div#grid');
-	this.robot = new Robot(this.$gridEl);
+	this.$grid = $('div#grid');
+	this.robot = new Robot(this);
 	this.refresh();
 };
 
@@ -71,6 +71,10 @@ Grid.prototype.parseCommandString = function(commandString) {
 	});
 
 	return commands;
+}
+
+Grid.prototype.getCells = function() {
+    return this.$grid.find('[id^=grid-]');
 }
 
 Grid.prototype.executeCommands = function(commands) {
