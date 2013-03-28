@@ -116,6 +116,8 @@ define(['jquery'], function() {
 			};
 		};
 		this.$grid.append(markup);
+
+		this.distributeItems();
 	};
 
 	Grid.prototype.drawMaze = function() {
@@ -126,6 +128,11 @@ define(['jquery'], function() {
 			wallClass = wallClasses[Math.floor((Math.random() * 4) + 1)];
 			$(this).addClass(wallClass);
 		});
+	};
+
+	Grid.prototype.distributeItems = function() {
+		var $cells = $('span[id^=grid-]');
+		$cells.append('<span class="item" />');
 	};
 
 	return Grid;

@@ -1,12 +1,58 @@
-body { width: 1200px }
-#grid { list-style:none; width: 832px; float:left; }
-span { border: 1px grey solid; width:50px; height:50px; float:left; background-color: grey; }
-.active { background-color:red; }
+#grid { list-style:none; width: 632px; float:left; }
+span { border: 0px grey solid; width:50px; height:50px; float:left; background-color: #f4f0ed; position:relative;}
+
+.active { background-color:#69c071; }
+/*
 .wall-up { border-top-color:green; }
 .wall-down { border-bottom-color:green; }
 .wall-left { border-left-color:green; }
-.wall-right { border-right-color:green; }
-.direction-up { border-top-color:yellow; }
-.direction-down { border-bottom-color:yellow; }
-.direction-left { border-left-color:yellow; }
-.direction-right { border-right-color:yellow; }
+.wall-right { border-right-color:green; }*/
+
+.direction-up { border-radius: 40px 40px 0 0; }
+.direction-down { border-radius: 0 0 40px 40px;}
+.direction-left { border-radius: 40px 0 0 40px; }
+.direction-right { border-radius: 0 40px 40px 0; }
+
+span.item {
+	background:yellow;
+	width:6px;
+	height:6px;
+	margin: 19px 19px;
+}
+
+span.wall {
+	display:none;
+	width:6px;
+	position:absolute;
+	background:#c4b9ac;
+	border:none;
+	z-index:10;
+}
+
+.wall-right span.wall {
+	right:-3px;
+	top:0px;
+	display:block;
+}
+
+.wall-left span.wall {
+	left:-3px;
+	top:0px;
+	display:block;
+}
+
+.wall-top span.wall {
+	left:-3px;
+	top:-3px;
+	width:56px;
+	height:6px;
+	display:block;
+}
+
+.wall-down span.wall {
+	left:-3px;
+	bottom:-3px;
+	width:56px;
+	height:6px;
+	display:block;
+}
