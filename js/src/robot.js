@@ -26,6 +26,7 @@ define(['jquery'], function() {
 		var newPosition = this.getPositionForDirection(this.direction);
 		if (this.canMoveToPosition(newPosition, this.direction)) {
 			this.position = newPosition;
+			this.collectItem();
 			this.draw();
 		}
 	}
@@ -112,7 +113,7 @@ define(['jquery'], function() {
 
 	Robot.prototype.doesCellContainWallInDirection = function(cell, direction) {
 		return (cell.hasClass('wall-' + direction));
-	}
+	};
 
 	Robot.prototype.getOppositeDirection = function(direction) {
 		var index = this.directions.indexOf(direction);
@@ -121,7 +122,12 @@ define(['jquery'], function() {
 			var oppositeDirectionIndex = (index % 2) ? index - 1 : index + 1;
 			return this.directions[oppositeDirectionIndex];
 		}
-	}
+	};
+
+	Robot.prototype.collectItem = function() {
+		var $cell = this.getCell();
+		$cell.removeClass('item');
+	};
 
 	return Robot;
 });

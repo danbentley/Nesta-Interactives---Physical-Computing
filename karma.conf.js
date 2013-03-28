@@ -10,7 +10,10 @@ basePath = '';
 files = [
   JASMINE,
   JASMINE_ADAPTER,
+  REQUIRE,
+  REQUIRE_ADAPTER,
 
+  'js/lib/jquery.min.js',
   // jasmine-jquery.js
   {
     pattern: 'test/fixtures/*.html',
@@ -24,10 +27,10 @@ files = [
     included: false,
     served: true
   },
+  { pattern: 'js/src/*.js', included: false },
+  { pattern: 'test/*.test.js', included: false },
   'test/helpers/*.js',
-  'js/lib/*.js',
-  'js/*.js',
-  'test/*.js'
+  'js/test-main.js'
 ];
 
 
