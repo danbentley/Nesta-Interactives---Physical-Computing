@@ -13,6 +13,13 @@ span { border: 0px grey solid; width:50px; height:50px; float:left; background-c
 .direction-left { border-radius: 40px 0 0 40px; }
 .direction-right { border-radius: 0 40px 40px 0; }
 
+span.item {
+	background:yellow;
+	width:6px;
+	height:6px;
+	margin: 19px 19px;
+}
+
 span.wall {
 	display:none;
 	width:6px;

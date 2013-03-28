@@ -20,6 +20,7 @@ define(['jquery'], function() {
 		var cell = this.getCell();
 		cell.addClass('active');
 		cell.addClass('direction-' + this.direction);
+		this.collectItem();
 	};
 
 	Robot.prototype.move = function() {
@@ -126,7 +127,7 @@ define(['jquery'], function() {
 
 	Robot.prototype.collectItem = function() {
 		var $cell = this.getCell();
-		$cell.removeClass('item');
+		$cell.find('span.item').remove();
 	};
 
 	return Robot;
