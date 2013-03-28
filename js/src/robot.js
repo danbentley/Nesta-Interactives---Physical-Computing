@@ -25,6 +25,10 @@ define(['jquery'], function() {
 
 	Robot.prototype.move = function() {
 		var newPosition = this.getPositionForDirection(this.direction);
+		var $cell = this.getCell();
+		if (this.doesCellContainGoalInDirection($cell, this.direction)) {
+			$(window).trigger('robot.wins');
+		}
 		if (this.canMoveToPosition(newPosition, this.direction)) {
 			this.position = newPosition;
 			this.collectItem();
@@ -92,13 +96,13 @@ define(['jquery'], function() {
 		if (!this.isPositionWithinBounds(position)) return false;
 
 		var cell = this.getCell();
-		if (this.doesCellContainWallInDirection(cell, direction)) {
+		if (!this.checkCellInDirection(cell, direction)) {
 			return false;
 		}
 
 		var newCell = this.getCellForPosition(position);
 		var oppositeDirection = this.getOppositeDirection(direction);
-		if (this.doesCellContainWallInDirection(newCell, oppositeDirection)) {
+		if (!this.checkCellInDirection(newCell, oppositeDirection)) {
 			return false;
 		}
 
@@ -112,8 +116,17 @@ define(['jquery'], function() {
 		return true;
 	};
 
+	Robot.prototype.checkCellInDirection = function(cell, direction) {
+		return (this.doesCellContainGoalInDirection(cell, direction) 
+				|| !this.doesCellContainWallInDirection(cell, direction));
+	};
+
 	Robot.prototype.doesCellContainWallInDirection = function(cell, direction) {
 		return (cell.hasClass('wall-' + direction));
+	};
+
+	Robot.prototype.doesCellContainGoalInDirection = function(cell, direction) {
+		return cell.find('span.wall').hasClass('goal');
 	};
 
 	Robot.prototype.getOppositeDirection = function(direction) {
