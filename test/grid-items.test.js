@@ -6,7 +6,7 @@ define(['grid', 'robot'], function(Grid, Robot) {
     describe('When a grid is created', function() {
 
         var grid = new Grid();
-        grid.start();
+        grid.init();
 
         it('should contain items', function() {
             var itemCount = $('span.item').length;

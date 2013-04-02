@@ -7,7 +7,7 @@ define(['grid', 'robot'], function(Grid, Robot) {
 
         var grid = new Grid();
         var robot = new Robot(grid);
-        grid.start();
+        grid.init();
 
         it('Parse basic commands (non-repeatable)', function() {
             var commandString = 'left\n right\n up\n down';

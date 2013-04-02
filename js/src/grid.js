@@ -12,7 +12,7 @@ define(['jquery'], function() {
 		};
 	}
 
-	Grid.prototype.start = function() {
+	Grid.prototype.init = function() {
 		this.addListeners();
 		this.draw();
 		this.refresh();
