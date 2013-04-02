@@ -7,14 +7,13 @@ define(['jquery'], function() {
 		}
 	};
 
-	function Grid(options) {
-		var opts = $.extend(defaults, options);
+	function Grid(dimensions) {
 		this.gridCount = 1;
 		this.validCommands = ['up', 'down', 'left', 'right', 'move'];
 		this.$commands = $('#commands');
 		this.robot;
 		this.$grid = $('div#grid');
-		this.dimensions = opts.dimensions;
+		this.dimensions = $.extend(defaults.dimensions, dimensions);
 	}
 
 	Grid.prototype.init = function() {
