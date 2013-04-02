@@ -108,7 +108,7 @@ define(['jquery'], function() {
 
 	Robot.prototype.isPositionWithinBounds = function(position) {
 		if (position.x < 0 || position.y < 0) return false;
-		if (position.x > 16 || position.y > 16) return false;
+		if (position.x > this.grid.dimensions.x || position.y > this.grid.dimensions.y) return false;
 
 		return true;
 	};

@@ -109,6 +109,17 @@ define(['grid', 'robot'], function(Grid, Robot) {
             expect(canMoveToPosition).toBeFalsy();
         });
 
+        it('should use boundaries defined by the grid', function() {
+            var grid = new Grid();
+            var robot = new Robot(grid);
+            grid.dimensions.x = 33;
+            grid.dimensions.y = 17;
+            grid.init();
+
+            expect(robot.isPositionWithinBounds({ x:33, y:17 })).toBeTruthy();
+            expect(robot.isPositionWithinBounds({ x:34, y:18 })).toBeFalsy();
+        });
+
         var testCantGoInDirection = function(direction) {
             it('Shouldn\'t be allowed to go ' + direction, function() {
                 var cell = robot.getCell();
