@@ -7,7 +7,7 @@ define(['grid', 'robot'], function(Grid, Robot) {
 
         var grid = new Grid(),
             robot = new Robot(grid);
-        grid.start();
+        grid.init();
 
         beforeEach(function() {
             // Maze is randomly created. Ensure that the current cell has no barriers
@@ -17,7 +17,7 @@ define(['grid', 'robot'], function(Grid, Robot) {
         });
 
         it('should be removed', function() {
-            var $rightCell = robot.getCellForPosition({ x: 1, y: 2 });
+            var $rightCell = grid.getCellForPosition({ x: 1, y: 2 });
             $rightCell.append('<span class="item" />');
 
             robot.right();
@@ -30,7 +30,7 @@ define(['grid', 'robot'], function(Grid, Robot) {
 
         var grid = new Grid(),
             robot = new Robot(grid);
-        grid.start();
+        grid.init();
 
         it('should be removed', function() {
             var $cell = robot.getCell();

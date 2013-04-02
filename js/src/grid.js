@@ -12,7 +12,7 @@ define(['jquery'], function() {
 		};
 	}
 
-	Grid.prototype.start = function() {
+	Grid.prototype.init = function() {
 		this.addListeners();
 		this.draw();
 		this.refresh();
@@ -140,6 +140,10 @@ define(['jquery'], function() {
 	Grid.prototype.drawGoal = function() {
 		var $cell = $('span#grid-7-11').append('<span class="wall" />');
 		$cell.find('.wall').addClass('goal');
+	};
+
+	Grid.prototype.getCellForPosition = function(position) {
+		return this.$grid.find('#grid-' + position.x + '-' + position.y);
 	};
 
 	return Grid;

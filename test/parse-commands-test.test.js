@@ -7,7 +7,7 @@ define(['grid', 'robot'], function(Grid, Robot) {
 
         var grid = new Grid();
         var robot = new Robot(grid);
-        grid.start();
+        grid.init();
 
         it('Parse basic commands (non-repeatable)', function() {
             var commandString = 'left\n right\n up\n down';
@@ -72,7 +72,7 @@ define(['grid', 'robot'], function(Grid, Robot) {
         });
 
         if('Cell for position', function() {
-            var fetchedCellUp = robot.getCellForPosition({ x: 1, y: 0 });
+            var fetchedCellUp = grid.getCellForPosition({ x: 1, y: 0 });
             expect($(fetchedCellUp).attr('id')).toEqual('grid-1-0');
         });
 
@@ -157,7 +157,7 @@ define(['grid', 'robot'], function(Grid, Robot) {
         });
 
         it('Test opposite walls', function() {
-            var cellUp = robot.getCellForPosition({ x: 1, y: 0 });
+            var cellUp = grid.getCellForPosition({ x: 1, y: 0 });
             expect(cellUp).not.toBeNull();
             $(cellUp).addClass('wall-down');
             expect(cellUp).toHaveClass('wall-down');

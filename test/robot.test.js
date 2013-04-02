@@ -7,7 +7,7 @@ define(['grid', 'robot'], function(Grid, Robot) {
 
         var grid = new Grid(),
             robot = new Robot(grid);
-        grid.start();
+        grid.init();
 
         beforeEach(function() {
             // Maze is randomly created. Ensure that the current cell has no barriers
@@ -19,7 +19,7 @@ define(['grid', 'robot'], function(Grid, Robot) {
         it('can move to goal', function() {
             var position = { x: 1, y: 1 };
 
-            var $cell = robot.getCellForPosition(position);
+            var $cell = grid.getCellForPosition(position);
             var containsWall = robot.doesCellContainWallInDirection($cell, 'up');
             expect(containsWall).toBeTruthy();
 
