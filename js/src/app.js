@@ -5,9 +5,12 @@ define(['src/grid', 'src/robot'], function(Grid, Robot) {
 	}
 
 	App.prototype.start = function() {
-		var grid = new Grid();
+		var grid = new Grid({
+			x:10,
+			y:5,
+		});
 		var robot = new Robot(grid);
-		grid.start();
+		grid.init();
 		this.addListeners();
 	};
 

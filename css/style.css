@@ -1,5 +1,5 @@
-#grid { list-style:none; width: 632px; float:left; }
-span { border: 0px grey solid; width:50px; height:50px; float:left; background-color: #f4f0ed; position:relative;}
+#grid { list-style:none; width: 670px; float:left; }
+span { border: 0px grey solid; width:65px; height:65px; float:left; background-color: #f4f0ed; position:relative;}
 
 .active { background-color:#69c071; }
 /*
@@ -44,7 +44,7 @@ span.item {
 .wall-top .wall {
 	left:-3px;
 	top:-3px;
-	width:56px;
+	width:68px;
 	height:6px;
 	display:block;
 }
@@ -52,7 +52,7 @@ span.item {
 .wall-down .wall {
 	left:-3px;
 	bottom:-3px;
-	width:56px;
+	width:68px;
 	height:6px;
 	display:block;
 }
