@@ -110,9 +110,10 @@ define(['grid', 'robot'], function(Grid, Robot) {
         });
 
         it('should use boundaries defined by the grid', function() {
-            var grid = new Grid();
-            grid.dimensions.x = 33;
-            grid.dimensions.y = 17;
+            var grid = new Grid({
+                x:33,
+                y:17
+            });
 
             expect(grid.isPositionWithinBounds({ x:33, y:17 })).toBeTruthy();
             expect(grid.isPositionWithinBounds({ x:34, y:18 })).toBeFalsy();
