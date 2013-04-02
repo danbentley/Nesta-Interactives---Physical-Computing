@@ -1,37 +1,36 @@
-define(['grid', 'robot'], function(Grid, Robot) {
+define(['src/app', 'src/robot', 'src/grid'], function(App, Robot, Grid) {
 
     jasmine.getFixtures().fixturesPath = 'base/test/fixtures';
     loadFixtures('index.html');
 
     describe('ParseCommands tests', function() {
 
-        var grid = new Grid();
-        var robot = new Robot(grid);
-        grid.init();
+        var app = new App();
+        app.init();
 
         it('Parse basic commands (non-repeatable)', function() {
             var commandString = 'left\n right\n up\n down';
-            var commands = grid.parseCommandString(commandString);
+            var commands = app.parseCommandString(commandString);
             expect(commands.length).toEqual(4);
         });
 
         it('Parse repeatable commands', function() {
             var commandString = 'left\n right\n move(10)';
-            var commands = grid.parseCommandString(commandString);
+            var commands = app.parseCommandString(commandString);
             expect(commands.length).toEqual(12);
             expect(commands.indexOf('move(10)')).toBe(-1);
         });
 
         it('Parse repeatable commands in middle of list', function() {
             var commandString = 'left\n right\n move(10)\n up\n down';
-            var commands = grid.parseCommandString(commandString);
+            var commands = app.parseCommandString(commandString);
             expect(commands.length).toEqual(14);
             expect(commands.indexOf('move(10)')).toBe(-1);
         });
 
         it('Parse multiple moves', function() {
             var commandString = 'move(1)\n up\n move(2)\n down\n move(3)\n left\n move(4)\n right';
-            var commands = grid.parseCommandString(commandString);
+            var commands = app.parseCommandString(commandString);
             expect(commands.length).toEqual(14);
 
             // Not sure whether this test works

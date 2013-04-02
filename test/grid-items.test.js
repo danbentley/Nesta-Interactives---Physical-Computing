@@ -1,4 +1,4 @@
-define(['grid', 'robot'], function(Grid, Robot) {
+define(['src/grid', 'src/robot'], function(Grid, Robot) {
 
     jasmine.getFixtures().fixturesPath = 'base/test/fixtures';
     loadFixtures('index.html');

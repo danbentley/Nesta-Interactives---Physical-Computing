@@ -4,104 +4,29 @@ define(['jquery'], function() {
 		dimensions: {
 			x: 8,
 			y: 12
+		},
+		goalPosition: {
+			x: 4,
+			y: 7
 		}
 	};
 
 	function Grid(dimensions) {
 		this.gridCount = 1;
-		this.validCommands = ['up', 'down', 'left', 'right', 'move'];
-		this.$commands = $('#commands');
 		this.robot;
 		this.$grid = $('div#grid');
 		this.dimensions = $.extend(defaults.dimensions, dimensions);
+		this.goalPosition = $.extend(defaults.goalPosition, dimensions);
 	}
 
 	Grid.prototype.init = function() {
-		this.addListeners();
 		this.draw();
 		this.refresh();
 	};
 
-	Grid.prototype.addListeners = function() {
-
-		$('a.up').on('click', $.proxy(function(e) {
-			this.$commands.val(this.$commands.val() + 'up\n');
-			e.preventDefault();
-		}, this));
-
-		$('a.down').on('click', $.proxy(function(e) {
-			this.$commands.val(this.$commands.val() + 'down\n');
-			e.preventDefault();
-		}, this));
-
-		$('a.left').on('click', $.proxy(function(e) {
-			this.$commands.val(this.$commands.val() + 'left\n');
-			e.preventDefault();
-		}, this));
-
-		$('a.right').on('click', $.proxy(function(e) {
-			this.$commands.val(this.$commands.val() + 'right\n');
-			e.preventDefault();
-		}, this));
-
-		$('a.move').on('click', $.proxy(function(e) {
-			this.$commands.val(this.$commands.val() + 'move(1)\n');
-			e.preventDefault();
-		}, this));
-
-		$('form#code').on('submit', $.proxy(function(e) {
-
-			var commands = this.parseCommandString(this.$commands.val())
-			this.executeCommands(commands);
-
-			e.preventDefault();
-		}, this));
-	};
-
-	Grid.prototype.parseCommandString = function(commandString) {
-
-		var parsedCommands = [];
-
-		var offset = 0;
-		var commands = commandString.split(new RegExp("\\s*\\\n\\s*"));
-		$.each(commands, function(index, command) {
-			var matches = command.match(/(\w+)\((\d+)\)/);
-			if (matches && matches.length > 2) {
-
-				var matchedCommand = matches[1];
-				var count = matches[2];
-
-				for (var i=0; i < count; i++) {
-					parsedCommands.push(matchedCommand);
-				};
-			} else {
-				parsedCommands.push(command);
-			}
-		});
-
-		return parsedCommands;
-	}
-
 	Grid.prototype.getCells = function() {
 		return this.$grid.find('[id^=grid-]');
 	}
-
-	Grid.prototype.executeCommands = function(commands) {
-
-		var intervalId;
-
-		clearInterval(intervalId);
-		intervalId = setInterval($.proxy(function() {
-			var command = commands.shift();
-			if (commands.length === 0) {
-				clearInterval(intervalId);
-				return;
-			}
-			if (this.validCommands.indexOf(command) > -1) {
-				this.robot[command]();
-			}
-		}, this), 500);
-	};
 
 	Grid.prototype.draw = function() {
 		this.drawGrid();
@@ -127,10 +52,17 @@ define(['jquery'], function() {
 
 		var wallClasses = ['wall-up', 'wall-down', 'wall-left', 'wall-right'];
 
+		$('#grid-0-1, #grid-0-2, #grid-0-4, #grid-0-5, #grid-0-8, #grid-1-3, #grid-1-4, #grid-1-9, #grid-3-1, #grid-3-2, #grid-3-3').addClass('wall-down');
+		$('#grid-0-9, #grid-1-1, #grid-1-7, #grid-2-1, #grid-2-2, #grid-2-5, #grid-2-6, #grid-2-7, #grid-2-9, #grid-3-4, #grid-3-5, #grid-3-7, #grid-4-5, #grid-4-6').addClass('wall-left');
+		$('#grid-3-8, #grid-4-7').addClass('wall-up');
+		$('#grid-0-3, #grid-4-8').addClass('wall-right');
+
+		/*
 		$('span[id^=grid-]').each(function() {
 			wallClass = wallClasses[Math.floor((Math.random() * 4) + 1)];
 			$(this).addClass(wallClass);
 		});
+		*/
 
 		this.distributeItems();
 		this.drawGoal();
@@ -142,7 +74,8 @@ define(['jquery'], function() {
 	};
 
 	Grid.prototype.drawGoal = function() {
-		var $cell = $('span#grid-7-11').append('<span class="wall" />');
+		var $cell = this.getCellForPosition(this.goalPosition)
+		$cell.addClass('wall-right');
 		$cell.find('.wall').addClass('goal');
 	};
 

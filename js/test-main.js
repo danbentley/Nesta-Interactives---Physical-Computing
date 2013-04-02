@@ -4,7 +4,7 @@ var tests = Object.keys(window.__karma__.files).filter(function (file) {
 
 require({
   // Karma serves files from '/base'
-  baseUrl: '/base/js/src',
+  baseUrl: '/base/js',
   paths: {
     require: '../lib/require',
     text: '../lib/text'
