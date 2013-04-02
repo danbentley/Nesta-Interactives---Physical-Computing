@@ -146,5 +146,12 @@ define(['jquery'], function() {
 		return this.$grid.find('#grid-' + position.x + '-' + position.y);
 	};
 
+	Grid.prototype.isPositionWithinBounds = function(position) {
+		if (position.x < 0 || position.y < 0) return false;
+		if (position.x > this.dimensions.x || position.y > this.dimensions.y) return false;
+
+		return true;
+	};
+
 	return Grid;
 });
