@@ -17,7 +17,7 @@ define(['grid', 'robot'], function(Grid, Robot) {
         });
 
         it('should be removed', function() {
-            var $rightCell = robot.getCellForPosition({ x: 1, y: 2 });
+            var $rightCell = grid.getCellForPosition({ x: 1, y: 2 });
             $rightCell.append('<span class="item" />');
 
             robot.right();

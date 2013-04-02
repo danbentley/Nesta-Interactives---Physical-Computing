@@ -142,5 +142,9 @@ define(['jquery'], function() {
 		$cell.find('.wall').addClass('goal');
 	};
 
+	Grid.prototype.getCellForPosition = function(position) {
+		return this.$grid.find('#grid-' + position.x + '-' + position.y);
+	};
+
 	return Grid;
 });

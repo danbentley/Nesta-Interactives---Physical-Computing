@@ -2,8 +2,9 @@ define(['jquery'], function() {
 
 	function Robot(grid) {
 		this.position = { x:1, y:1 };
-		this.$grid = grid.$grid;
-		grid.robot = this;
+		this.grid = grid;
+		this.grid.robot = this;
+		this.$grid = this.grid.$grid;
 		this.addListeners();
 		this.directions = ['up', 'down', 'left', 'right'];
 		this.direction = 'up';
@@ -61,11 +62,7 @@ define(['jquery'], function() {
 	};
 
 	Robot.prototype.getCell = function() {
-		return this.getCellForPosition(this.position);
-	};
-
-	Robot.prototype.getCellForPosition = function(position) {
-		return this.$grid.find('#grid-' + position.x + '-' + position.y);
+		return this.grid.getCellForPosition(this.position);
 	};
 
 	Robot.prototype.getPositionForDirection = function(direction) {
@@ -100,7 +97,7 @@ define(['jquery'], function() {
 			return false;
 		}
 
-		var newCell = this.getCellForPosition(position);
+		var newCell = this.grid.getCellForPosition(position);
 		var oppositeDirection = this.getOppositeDirection(direction);
 		if (!this.checkCellInDirection(newCell, oppositeDirection)) {
 			return false;
