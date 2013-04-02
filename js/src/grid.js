@@ -1,15 +1,20 @@
 define(['jquery'], function() {
 
-	function Grid(robot) {
+	var defaults = {
+		dimensions: {
+			x: 8,
+			y: 12
+		}
+	};
+
+	function Grid(options) {
+		var opts = $.extend(defaults, options);
 		this.gridCount = 1;
 		this.validCommands = ['up', 'down', 'left', 'right', 'move'];
-		this.$grid = $('div#grid');
 		this.$commands = $('#commands');
 		this.robot;
-		this.dimensions = {
-			x: 8,
-			y: 12,
-		};
+		this.$grid = $('div#grid');
+		this.dimensions = opts.dimensions;
 	}
 
 	Grid.prototype.init = function() {
