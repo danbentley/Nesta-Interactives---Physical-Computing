@@ -1,7 +1,7 @@
 define(['jquery'], function() {
 
 	function Robot(grid) {
-		this.position = { x:1, y:1 };
+		this.position = { x:0, y:0 };
 		this.grid = grid;
 		this.grid.robot = this;
 		this.$grid = this.grid.$grid;

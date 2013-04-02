@@ -7,6 +7,7 @@ define(['grid', 'robot'], function(Grid, Robot) {
 
         var grid = new Grid(),
             robot = new Robot(grid);
+        robot.position = { x:1, y:1 };
         grid.init();
 
         beforeEach(function() {
