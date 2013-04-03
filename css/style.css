@@ -1,62 +1,308 @@
-#grid { list-style:none; width: 670px; float:left; }
-span { border: 0px grey solid; width:65px; height:65px; float:left; background-color: #f4f0ed; position:relative;}
+/* STANDARD STYLES */
 
-.active { background-color:#69c071; }
-/*
-.wall-up { border-top-color:green; }
-.wall-down { border-bottom-color:green; }
-.wall-left { border-left-color:green; }
-.wall-right { border-right-color:green; }*/
+body {
+	background: #e9e4de;
+}
 
-.direction-up { border-radius: 40px 40px 0 0; }
-.direction-down { border-radius: 0 0 40px 40px;}
-.direction-left { border-radius: 40px 0 0 40px; }
-.direction-right { border-radius: 0 40px 40px 0; }
+@font-face {
+	font-family: 'MuseoSlab500';
+	src: url("../../../library/fonts/Museo_Slab_500-webfont.eot");
+	src: url("../../../library/fonts/Museo_Slab_500-webfont.eot?#iefix") format("embedded-opentype"), url("../../../library/fonts/Museo_Slab_500-webfont.woff") format("woff"), url("../../../library/fonts/Museo_Slab_500-webfont.ttf") format("truetype"), url("../../../library/fonts/Museo_Slab_500-webfont.svg#MuseoSlab500Regular") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'MuseoSlab500';
+	src: url("../../../library/fonts/Museo_Slab_500italic-webfont.eot");
+	src: url("../../../library/fonts/Museo_Slab_500italic-webfont.eot?#iefix") format("embedded-opentype"), url("../../../library/fonts/Museo_Slab_500italic-webfont.woff") format("woff"), url("../../../library/fonts/Museo_Slab_500italic-webfont.ttf") format("truetype"), url("../../../library/fonts/Museo_Slab_500italic-webfont.svg#MuseoSlab500Italic") format("svg");
+	font-weight: normal;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'MuseoSlab500';
+	src: url("../../../library/fonts/Museo_Slab_500-webfont.eot");
+	src: url("../../../library/fonts/Museo_Slab_500-webfont.eot?#iefix") format("embedded-opentype"), url("../../../library/fonts/Museo_Slab_500-webfont.woff") format("woff"), url("../../../library/fonts/Museo_Slab_500-webfont.ttf") format("truetype"), url("../../../library/fonts/Museo_Slab_500-webfont.svg#MuseoSlab500Regular") format("svg");
+	font-weight: bold;
+	font-style: normal;
+}
+
+
+.interactive-wrapper {
+	width: 963px;
+	overflow: hidden;
+	background: #fff;
+	border-radius: 3px;
+	border: 1px #d1cdc2 solid;
+}
+
+
+.instructions {
+	color: #656565;
+	float: right;
+	width: 265px;
+	font-family:'MuseoSlab500', Helvetica, Sans-serif;
+}
+
+.instructions h2 {
+	padding: 17px 20px 15px;
+	margin: 0 0 0.8em;
+	border-bottom: 1px #d1cdc2 solid;
+	font: normal 1.165em 'MuseoSlab500', Helvetica, Sans-serif;
+}
+
+.instructions div {
+	padding: 0 20px;
+}
+
+.instructions p {
+	font: normal 0.95em/1.5 'MuseoSlab500', Helvetica, Sans-serif;
+	margin: 0 0 1.5em;
+}
+
+
+
+
+/* INTERACTIVE-SPECIFIC STYLES */
+
+
+/* COMMAND FORM */
+
+.command-form {
+	margin: 0;
+}
+
+textarea {
+	border: 1px #d2ccc3 solid;
+	background: #f4f0ed;
+	color: #656565;
+	width: 223px;
+	height: 95px;
+	margin: 0;
+	padding: 10px;
+	display: block;
+	font: normal 0.8125em/1.5 'MuseoSlab500', Helvetica, Sans-serif;
+}
+
+.run-code {
+	background: #fff;
+	border: none;
+	color: #f2675e;
+	font: normal 0.95em/1.5 'MuseoSlab500', Helvetica, Sans-serif;
+	border: 1px #d2ccc3 solid;
+	border-top: none;
+	width: 223px;
+	padding: 10px 0;
+	margin: 0;
+	cursor: pointer;
+	-moz-transition: all .2s ease-in-out;
+	-webkit-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+
+.run-code:hover {
+	background: #faf6f2;
+}
+
+.run-code:active {
+	background: #f4f0ed;
+}
+
+
+
+/* CELLS */
+.interactive {
+	background: #f4f0ed;
+	padding: 0;
+	list-style: none;
+	width: 697px;
+	float: left;
+	border-right: 1px #d1cdc2 solid;
+	overflow: hidden;
+}
+
+.interactive > span {
+	border-bottom: 1px #e6e1db solid;
+	border-right: 1px #e6e1db solid;
+	width:64px;
+	height:64px;
+	float:left;
+	background-color: #f4f0ed;
+	position:relative;
+	float:left;
+	width:65px;
+	height:65px;
+}
+
+
+.interactive > span.row-4 {
+	border-bottom: none;
+}
+
+span { display: block; }
+
+
+
+
+/* ROBOT */
+
+.robot {
+	background: #6ac071;
+	display: block;
+	z-index: 20;
+	width: 32px;
+	height: 32px;
+	border-radius: 16px;
+	position: absolute;
+	overflow: hidden;
+	top: 16px;
+	left: 16px;
+}
+
+.robot span {
+	position: absolute;
+	display: block;
+}
+
+.robot .eye {
+	width: 4px;
+	height: 4px;
+	border-radius: 4px;
+	background: #fff;
+}
+
+.robot .mouth {
+	width: 10px;
+	height: 10px;
+	border-radius: 5px;
+	background: #656565;
+}
+
+
+/* ROBOT - Directions */
+
+.direction-down .left-eye {
+	top: 23px;
+	left: 9px;
+}
+.direction-down .right-eye {
+	top: 23px;
+	right: 9px;
+}
+
+.direction-down .mouth {
+	top:28px;
+	left:11px;
+}
+
+
+
+.direction-up .left-eye {
+	bottom: 23px;
+	left: 9px;
+}
+.direction-up .right-eye {
+	bottom: 23px;
+	right: 9px;
+}
+
+.direction-up .mouth {
+	bottom:28px;
+	left:11px;
+}
+
+
+
+
+.direction-right .left-eye {
+	left: 23px;
+	bottom: 9px;
+}
+.direction-right .right-eye {
+	left: 23px;
+	top: 9px;
+}
+
+.direction-right .mouth {
+	left:28px;
+	bottom:11px;
+}
+
+
+.direction-left .left-eye {
+	right: 23px;
+	bottom: 9px;
+}
+.direction-left .right-eye {
+	right: 23px;
+	top: 9px;
+}
+
+.direction-left .mouth {
+	right:28px;
+	bottom:11px;
+}
+
+
 
 span.item {
-	background:yellow;
-	width:6px;
-	height:6px;
-	margin: 19px 19px;
+	background: #c7beb3;
+	width: 5px;
+	height: 5px;
+	margin: 30px 30px;
+	border-radius: 5px;
 }
+
+
+
+
+/* WALLS */
+
+.wall-right .wall-right,
+.wall-left .wall-left { width:7px; height:73px; }
+
+.wall-up .wall-up,
+.wall-down .wall-down { width:73px; height:7px; }
 
 .wall {
-	display:none;
-	width:6px;
-	position:absolute;
-	background:#c4b9ac;
-	border:none;
-	z-index:10;
+	display: none;
+	width: 6px;
+	position: absolute;
+	background: #847866;
+	border :none;
+	border-radius: 4px;
+	opacity: 0.5;
+	z-index: 10;
 }
 
-.wall-right .wall {
-	right:-3px;
-	top:0px;
+.wall-right .wall-right {
+	right:-4px;
+	top:-4px;
 	display:block;
 }
 
-.wall-left .wall {
-	left:-3px;
-	top:0px;
+.wall-left .wall-left {
+	left: -4px;
+	top: -4px;
 	display:block;
 }
 
-.wall-up .wall {
-	left:-3px;
-	top:-3px;
-	width:68px;
-	height:6px;
+.wall-up .wall-up {
+	left:-4px;
+	top:-4px;
 	display:block;
 }
 
-.wall-down .wall {
-	left:-3px;
-	bottom:-3px;
-	width:68px;
-	height:6px;
+.wall-down .wall-down {
+	left:-4px;
+	bottom:-4px;
 	display:block;
 }
 
 .goal {
-	background:yellow;
+	background: #f1a63b;
+	opacity: 1;
+	z-index: 1;
 }

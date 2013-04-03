@@ -14,6 +14,7 @@ files = [
   REQUIRE_ADAPTER,
 
   'js/lib/jquery.min.js',
+  'js/lib/jquery.transit.min.js',
   // jasmine-jquery.js
   {
     pattern: 'test/fixtures/*.html',

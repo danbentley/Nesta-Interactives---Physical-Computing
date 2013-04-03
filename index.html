@@ -5,16 +5,38 @@
 		<script data-main="js/main.js" src="js/require-jquery.js"></script>
 	</head>
 	<body>
-		<div id="grid"></div>
-		<a href="#" class="up">&uarr;</a>
-		<a href="#" class="down">&darr;</a>
-		<a href="#" class="left">&larr;</a>
-		<a href="#" class="right">&rarr;</a>
-		<a href="#" class="move">Move</a>
-		<label for="commands">Commands</label>
-		<form id="code">
-			<textarea name="commands" id="commands" rows="8" cols="40"></textarea>
-			<input type="submit" value="Run your code"/>
-		</form>
+		
+		<div class="interactive-wrapper">
+			
+			<div id="grid" class="physical-computing interactive"></div>
+
+			<div class="instructions">
+				
+				<h2>Information</h2>
+				
+				<div>
+					<p>Collect your friends and complete the maze using input and running your code.</p>
+					
+					
+					
+					<a href="#" class="up">&uarr;</a>
+					<a href="#" class="down">&darr;</a>
+					<a href="#" class="left">&larr;</a>
+					<a href="#" class="right">&rarr;</a>
+					<a href="#" class="move">Move</a>
+					<label for="commands">Commands</label>
+					
+					
+					
+					<form id="code" class="command-form">
+						<textarea name="commands" id="commands" rows="8" cols="40"></textarea>
+						<input type="submit" class="run-code" value="Run your code!"/>
+					</form>
+					
+				</div>
+				
+			</div>
+
+		</div>
 	</body>
 </html>

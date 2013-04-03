@@ -8,6 +8,13 @@ define(['src/grid', 'src/robot'], function(Grid, Robot) {
         var grid = new Grid(),
             robot = new Robot(grid);
         robot.position = { x:1, y:1 };
+        grid.loadMaze({
+            up:{},
+            down:{},
+            left:{},
+            right:{},
+            goal:{ x:9, y:9 }
+        });
         grid.init();
 
         beforeEach(function() {
@@ -31,6 +38,13 @@ define(['src/grid', 'src/robot'], function(Grid, Robot) {
 
         var grid = new Grid(),
             robot = new Robot(grid);
+        grid.loadMaze({
+            up:{},
+            down:{},
+            left:{},
+            right:{},
+            goal:{ x:9, y:9 }
+        });
         grid.init();
 
         it('should be removed', function() {

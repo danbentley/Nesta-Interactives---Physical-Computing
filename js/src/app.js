@@ -1,4 +1,4 @@
-define(['src/grid', 'src/robot'], function(Grid, Robot) {
+define(['src/grid', 'src/robot', 'src/maze'], function(Grid, Robot) {
 
 	function App() {
 		this.robot;
@@ -12,12 +12,13 @@ define(['src/grid', 'src/robot'], function(Grid, Robot) {
 			x:5,
 			y:10
 		});
-		this.grid.goalPosition = {
-			x:4,
-			y:9
-		};
+
+		var maze = require('src/maze');
+		this.grid.loadMaze(maze);
+
 		this.robot = new Robot(this.grid);
 		this.grid.init();
+
 		this.addListeners();
 	};
 
@@ -103,7 +104,7 @@ define(['src/grid', 'src/robot'], function(Grid, Robot) {
 	};
 
 	App.prototype.end = function() {
-		alert('Robot wins!');
+		console.log('Robot wins!');
 	};
 
 	return App;

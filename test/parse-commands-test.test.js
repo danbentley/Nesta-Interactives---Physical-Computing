@@ -114,8 +114,8 @@ define(['src/app', 'src/robot', 'src/grid'], function(App, Robot, Grid) {
                 y:17
             });
 
-            expect(grid.isPositionWithinBounds({ x:33, y:17 })).toBeTruthy();
-            expect(grid.isPositionWithinBounds({ x:34, y:18 })).toBeFalsy();
+            expect(grid.isPositionWithinBounds({ x:32, y:16 })).toBeTruthy();
+            expect(grid.isPositionWithinBounds({ x:33, y:17 })).toBeFalsy();
         });
 
         var testCantGoInDirection = function(direction) {
@@ -173,6 +173,34 @@ define(['src/app', 'src/robot', 'src/grid'], function(App, Robot, Grid) {
 
             var canMoveToPosition = robot.canMoveToPosition({ x: 1, y: 0 }, 'up');
             expect(canMoveToPosition).toBeFalsy();
+        });
+
+        it('should return the relative degrees to turn when facing up', function() {
+            var currentDirection = 'up';
+            expect(robot.getDegreesToFromDirection('left', currentDirection)).toEqual(270);
+            expect(robot.getDegreesToFromDirection('down', currentDirection)).toEqual(180);
+            expect(robot.getDegreesToFromDirection('right', currentDirection)).toEqual(90);
+        });
+
+        it('should return the relative degrees to turn when facing down', function() {
+            currentDirection = 'down';
+            expect(robot.getDegreesToFromDirection('up', currentDirection)).toEqual(180);
+            expect(robot.getDegreesToFromDirection('left', currentDirection)).toEqual(90);
+            expect(robot.getDegreesToFromDirection('right', currentDirection)).toEqual(270);
+        });
+
+        it('should return the relative degrees to turn when facing left', function() {
+            currentDirection = 'left';
+            expect(robot.getDegreesToFromDirection('up', currentDirection)).toEqual(90);
+            expect(robot.getDegreesToFromDirection('right', currentDirection)).toEqual(180);
+            expect(robot.getDegreesToFromDirection('down', currentDirection)).toEqual(270);
+        });
+
+        it('should return the relative degrees to turn when facing right', function() {
+            currentDirection = 'right';
+            expect(robot.getDegreesToFromDirection('down', currentDirection)).toEqual(90);
+            expect(robot.getDegreesToFromDirection('left', currentDirection)).toEqual(180);
+            expect(robot.getDegreesToFromDirection('up', currentDirection)).toEqual(270);
         });
     });
 });
