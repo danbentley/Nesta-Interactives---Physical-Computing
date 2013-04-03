@@ -174,5 +174,18 @@ define(['src/app', 'src/robot', 'src/grid'], function(App, Robot, Grid) {
             var canMoveToPosition = robot.canMoveToPosition({ x: 1, y: 0 }, 'up');
             expect(canMoveToPosition).toBeFalsy();
         });
+
+        it('should return the relative degrees to turn', function() {
+
+            robot.direction = 'up';
+            expect(robot.getDegreesToFromDirection('left')).toEqual(90);
+            expect(robot.getDegreesToFromDirection('down')).toEqual(180);
+            expect(robot.getDegreesToFromDirection('right')).toEqual(180);
+
+            robot.direction = 'down';
+            expect(robot.getDegreesToFromDirection('up')).toEqual(180);
+            expect(robot.getDegreesToFromDirection('left')).toEqual(270);
+            expect(robot.getDegreesToFromDirection('rigth')).toEqual(90);
+        });
     });
 });

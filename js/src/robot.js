@@ -1,4 +1,4 @@
-define(['jquery'], function() {
+define(['jquery', 'lib/jquery.transit.min'], function() {
 
 	function Robot(grid) {
 		this.position = { x:0, y:0 };
@@ -6,20 +6,20 @@ define(['jquery'], function() {
 		this.grid.robot = this;
 		this.$grid = this.grid.$grid;
 		this.addListeners();
-		this.directions = ['up', 'down', 'left', 'right'];
+		this.directions = ['up', 'left', 'down', 'right'];
 		this.direction = 'up';
 	}
 
 	Robot.prototype.addListeners = function() {
 		$(window).on('grid.refresh', $.proxy(function() {
-			this.draw();
+			this.init();
 		}, this));
 	};
 
-	Robot.prototype.draw = function() {
-		this.$grid.find('.robot').remove();
+	Robot.prototype.init = function() {
 		var cell = this.getCell();
-		cell.append('<span class="robot direction-' + this.direction + '"><span class="eye left-eye"></span><span class="eye right-eye"></span><span class="mouth"></span></span>');
+		this.$grid.find('.robot').remove();
+		cell.append('<span id="robot" class="robot direction-' + this.direction + '"><span class="eye left-eye"></span><span class="eye right-eye"></span><span class="mouth"></span></span>');
 		cell.addClass('active');
 		this.collectItem();
 	};
@@ -33,36 +33,68 @@ define(['jquery'], function() {
 		if (this.canMoveToPosition(newPosition, this.direction)) {
 			this.position = newPosition;
 			this.collectItem();
-			this.draw();
+
+			var transition = this.getTransitionForDirection(this.direction);
+			$('.robot').transition(transition, $.proxy(function() {
+				this.init();
+			}, this));
 		}
 	}
 
 	Robot.prototype.up = function() {
 		var newPosition = $.extend({}, this.position);
-		this.direction = 'up';
-		this.draw();
+		var direction = 'up';
+		this.turnToDirection(direction);
+		this.direction = direction;
 	};
 
 	Robot.prototype.down = function() {
 		var newPosition = $.extend({}, this.position);
 		this.direction = 'down';
-		this.draw();
+		//this.draw();
+		$('.robot').transition({ rotate:'180deg' });
 	};
 
 	Robot.prototype.left = function() {
 		var newPosition = $.extend({}, this.position);
 		this.direction = 'left';
-		this.draw();
+		//this.draw();
+		$('.robot').transition({ rotate:'270deg' });
 	};
 
 	Robot.prototype.right = function() {
 		var newPosition = $.extend({}, this.position);
 		this.direction = 'right';
-		this.draw();
+		//this.draw();
+		$('.robot').transition({ rotate:'90deg' });
 	};
 
 	Robot.prototype.getCell = function() {
 		return this.grid.getCellForPosition(this.position);
+	};
+
+	Robot.prototype.turnToDirection = function(direction) {
+		var currentDirection = this.direction;
+		var degrees = this.getDegreesToFromDirection(direction, currentDirection);
+		$('.robot').transition({ rotate:degrees + 'deg' });
+	};
+
+	Robot.prototype.getDegreesToFromDirection = function(toDirection, fromDirection) {
+		var toIndex = this.directions.indexOf(toDirection);
+		var fromIndex = this.directions.indexOf(fromDirection);
+		return 0;
+	}
+
+	Robot.prototype.getTransitionForDirection = function(direction) {
+		if (this.direction === 'up') {
+			return { x:0, y:'+=65' };
+		} else if (this.direction === 'down') {
+			return { x:0, y:'-=65' };
+		} else if (this.direction === 'left') {
+			return { x:0, y:'+=65' };
+		} else if (this.direction === 'right') {
+			return { x:0, y:'-=65' };
+		}
 	};
 
 	Robot.prototype.getPositionForDirection = function(direction) {
@@ -123,7 +155,7 @@ define(['jquery'], function() {
 		var index = this.directions.indexOf(direction);
 
 		if (index > -1) {
-			var oppositeDirectionIndex = (index % 2) ? index - 1 : index + 1;
+			var oppositeDirectionIndex = (index > 1) ? index - 2 : index + 2;
 			return this.directions[oppositeDirectionIndex];
 		}
 	};

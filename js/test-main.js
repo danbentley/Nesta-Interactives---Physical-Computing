@@ -6,8 +6,7 @@ require({
   // Karma serves files from '/base'
   baseUrl: '/base/js',
   paths: {
-    require: '../lib/require',
-    text: '../lib/text'
+    'jquery.transit.min': 'lib/jquery.transit.min',
   },
   // ask requirejs to load these files (all our tests)
   deps: tests,

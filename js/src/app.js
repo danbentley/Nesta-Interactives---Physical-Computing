@@ -104,7 +104,7 @@ define(['src/grid', 'src/robot', 'src/maze'], function(Grid, Robot) {
 	};
 
 	App.prototype.end = function() {
-		alert('Robot wins!');
+		console.log('Robot wins!');
 	};
 
 	return App;
