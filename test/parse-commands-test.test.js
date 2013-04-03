@@ -114,8 +114,8 @@ define(['src/app', 'src/robot', 'src/grid'], function(App, Robot, Grid) {
                 y:17
             });
 
-            expect(grid.isPositionWithinBounds({ x:33, y:17 })).toBeTruthy();
-            expect(grid.isPositionWithinBounds({ x:34, y:18 })).toBeFalsy();
+            expect(grid.isPositionWithinBounds({ x:32, y:16 })).toBeTruthy();
+            expect(grid.isPositionWithinBounds({ x:33, y:17 })).toBeFalsy();
         });
 
         var testCantGoInDirection = function(direction) {

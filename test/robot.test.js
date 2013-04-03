@@ -7,12 +7,21 @@ define(['src/grid', 'src/robot'], function(Grid, Robot) {
 
         var grid = new Grid(),
             robot = new Robot(grid);
+        grid.loadMaze({
+            up:{},
+            down:{},
+            left:{},
+            right:{},
+            goal:{ x:9, y:9 }
+        });
         grid.init();
 
         beforeEach(function() {
             // Maze is randomly created. Ensure that the current cell has no barriers
             var cells = grid.getCells();
-            cells.addClass('wall-up wall-down wall-left wall-right');
+            $.each(cells, function() {
+                grid.addWallForDirection($(this), 'up');
+            })
             cells.find('.wall').addClass('goal');
         });
 

@@ -17,10 +17,10 @@ define(['jquery'], function() {
 	};
 
 	Robot.prototype.draw = function() {
-		this.$grid.find('span').removeClass('active direction-up direction-down direction-left direction-right');
+		this.$grid.find('.robot').remove();
 		var cell = this.getCell();
+		cell.append('<span class="robot direction-' + this.direction + '"><span class="eye left-eye"></span><span class="eye right-eye"></span><span class="mouth"></span></span>');
 		cell.addClass('active');
-		cell.addClass('direction-' + this.direction);
 		this.collectItem();
 	};
 
