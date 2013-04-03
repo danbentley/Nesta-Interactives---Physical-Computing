@@ -50,23 +50,23 @@ define(['jquery', 'lib/jquery.transit.min'], function() {
 
 	Robot.prototype.down = function() {
 		var newPosition = $.extend({}, this.position);
-		this.direction = 'down';
-		//this.draw();
-		$('.robot').transition({ rotate:'180deg' });
+		var direction = 'down';
+		this.turnToDirection(direction);
+		this.direction = direction;
 	};
 
 	Robot.prototype.left = function() {
 		var newPosition = $.extend({}, this.position);
-		this.direction = 'left';
-		//this.draw();
-		$('.robot').transition({ rotate:'270deg' });
+		var direction = 'left';
+		this.turnToDirection(direction);
+		this.direction = direction;
 	};
 
 	Robot.prototype.right = function() {
 		var newPosition = $.extend({}, this.position);
-		this.direction = 'right';
-		//this.draw();
-		$('.robot').transition({ rotate:'90deg' });
+		var direction = 'right';
+		this.turnToDirection(direction);
+		this.direction = direction;
 	};
 
 	Robot.prototype.getCell = function() {
@@ -76,20 +76,30 @@ define(['jquery', 'lib/jquery.transit.min'], function() {
 	Robot.prototype.turnToDirection = function(direction) {
 		var currentDirection = this.direction;
 		var degrees = this.getDegreesToFromDirection(direction, currentDirection);
-		$('.robot').transition({ rotate:degrees + 'deg' });
+		$('.robot').transition({ rotate:degrees + 'deg' }, $.proxy(function() {
+			this.init();
+		}, this));
 	};
 
 	Robot.prototype.getDegreesToFromDirection = function(toDirection, fromDirection) {
 		var toIndex = this.directions.indexOf(toDirection);
 		var fromIndex = this.directions.indexOf(fromDirection);
+
+		if (fromDirection === 'left') {
+			return ((fromIndex + toIndex) - 2) * 90;
+		}
+
+		if (fromDirection === 'right') {
+			var turns = toIndex - fromIndex;
+			turns = (turns < 0) ? 3 : turns;
+			return turns * 90;
+		}
+
 		if (toIndex > fromIndex) {
-			console.log('toIndex: ' + toIndex + ' to direction: ' + toDirection);
-			console.log('fromIndex: ' + fromIndex + ' for direction: ' + fromDirection);
 			return (toIndex - fromIndex)  * 90;
 		} else {
 			return (fromIndex + toIndex)  * 90;
 		}
-		return 0;
 	}
 
 	Robot.prototype.getTransitionForDirection = function(direction) {
