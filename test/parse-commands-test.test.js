@@ -177,15 +177,15 @@ define(['src/app', 'src/robot', 'src/grid'], function(App, Robot, Grid) {
 
         it('should return the relative degrees to turn', function() {
 
-            robot.direction = 'up';
-            expect(robot.getDegreesToFromDirection('left')).toEqual(90);
-            expect(robot.getDegreesToFromDirection('down')).toEqual(180);
-            expect(robot.getDegreesToFromDirection('right')).toEqual(180);
+            var currentDirection = 'up';
+            expect(robot.getDegreesToFromDirection('left', currentDirection)).toEqual(270);
+            expect(robot.getDegreesToFromDirection('down', currentDirection)).toEqual(180);
+            expect(robot.getDegreesToFromDirection('right', currentDirection)).toEqual(90);
 
-            robot.direction = 'down';
-            expect(robot.getDegreesToFromDirection('up')).toEqual(180);
-            expect(robot.getDegreesToFromDirection('left')).toEqual(270);
-            expect(robot.getDegreesToFromDirection('rigth')).toEqual(90);
+            currentDirection = 'down';
+            expect(robot.getDegreesToFromDirection('up', currentDirection)).toEqual(180);
+            expect(robot.getDegreesToFromDirection('left', currentDirection)).toEqual(90);
+            expect(robot.getDegreesToFromDirection('right', currentDirection)).toEqual(270);
         });
     });
 });

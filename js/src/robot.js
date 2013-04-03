@@ -6,7 +6,7 @@ define(['jquery', 'lib/jquery.transit.min'], function() {
 		this.grid.robot = this;
 		this.$grid = this.grid.$grid;
 		this.addListeners();
-		this.directions = ['up', 'left', 'down', 'right'];
+		this.directions = ['up', 'right', 'down', 'left'];
 		this.direction = 'up';
 	}
 
@@ -82,6 +82,13 @@ define(['jquery', 'lib/jquery.transit.min'], function() {
 	Robot.prototype.getDegreesToFromDirection = function(toDirection, fromDirection) {
 		var toIndex = this.directions.indexOf(toDirection);
 		var fromIndex = this.directions.indexOf(fromDirection);
+		if (toIndex > fromIndex) {
+			console.log('toIndex: ' + toIndex + ' to direction: ' + toDirection);
+			console.log('fromIndex: ' + fromIndex + ' for direction: ' + fromDirection);
+			return (toIndex - fromIndex)  * 90;
+		} else {
+			return (fromIndex + toIndex)  * 90;
+		}
 		return 0;
 	}
 
