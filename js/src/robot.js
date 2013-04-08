@@ -42,31 +42,23 @@ define(['jquery', 'lib/jquery.transit.min'], function() {
 	}
 
 	Robot.prototype.up = function() {
-		var newPosition = $.extend({}, this.position);
 		var direction = 'up';
 		this.turnToDirection(direction);
-		this.direction = direction;
 	};
 
 	Robot.prototype.down = function() {
-		var newPosition = $.extend({}, this.position);
 		var direction = 'down';
 		this.turnToDirection(direction);
-		this.direction = direction;
 	};
 
 	Robot.prototype.left = function() {
-		var newPosition = $.extend({}, this.position);
 		var direction = 'left';
 		this.turnToDirection(direction);
-		this.direction = direction;
 	};
 
 	Robot.prototype.right = function() {
-		var newPosition = $.extend({}, this.position);
 		var direction = 'right';
 		this.turnToDirection(direction);
-		this.direction = direction;
 	};
 
 	Robot.prototype.getCell = function() {
@@ -77,6 +69,7 @@ define(['jquery', 'lib/jquery.transit.min'], function() {
 		var currentDirection = this.direction;
 		var degrees = this.getDegreesToFromDirection(direction, currentDirection);
 		$('.robot').transition({ rotate:degrees + 'deg' }, $.proxy(function() {
+			this.direction = direction;
 			this.init();
 		}, this));
 	};
@@ -104,13 +97,13 @@ define(['jquery', 'lib/jquery.transit.min'], function() {
 
 	Robot.prototype.getTransitionForDirection = function(direction) {
 		if (this.direction === 'up') {
-			return { x:0, y:'+=65' };
+			return { x:0, y:'-=65' };
 		} else if (this.direction === 'down') {
-			return { x:0, y:'-=65' };
-		} else if (this.direction === 'left') {
 			return { x:0, y:'+=65' };
+		} else if (this.direction === 'left') {
+			return { x:'-=65', y:0 };
 		} else if (this.direction === 'right') {
-			return { x:0, y:'-=65' };
+			return { x:'+=65', y:0 };
 		}
 	};
 
