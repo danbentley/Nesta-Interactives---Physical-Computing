@@ -42,27 +42,35 @@ define(['jquery', 'lib/jquery.transit.min'], function() {
 	}
 
 	Robot.prototype.up = function() {
+		if (!this.shouldTurnToDirection('up')) return;
 		var direction = 'up';
 		this.turnToDirection(direction);
 	};
 
 	Robot.prototype.down = function() {
+		if (!this.shouldTurnToDirection('down')) return;
 		var direction = 'down';
 		this.turnToDirection(direction);
 	};
 
 	Robot.prototype.left = function() {
+		if (!this.shouldTurnToDirection('left')) return;
 		var direction = 'left';
 		this.turnToDirection(direction);
 	};
 
 	Robot.prototype.right = function() {
+		if (!this.shouldTurnToDirection('right')) return;
 		var direction = 'right';
 		this.turnToDirection(direction);
 	};
 
 	Robot.prototype.getCell = function() {
 		return this.grid.getCellForPosition(this.position);
+	};
+
+	Robot.prototype.shouldTurnToDirection = function(direction) {
+		return (direction !== this.direction);
 	};
 
 	Robot.prototype.turnToDirection = function(direction) {
