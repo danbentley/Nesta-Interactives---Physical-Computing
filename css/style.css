@@ -2,6 +2,8 @@
 
 body {
 	background: #e9e4de;
+	padding: 0;
+	margin: 0;
 }
 
 @font-face {
@@ -46,10 +48,10 @@ body {
 }
 
 .instructions h2 {
-	padding: 17px 20px 15px;
+	padding: 20px 20px 15px;
 	margin: 0 0 0.8em;
 	border-bottom: 1px #d1cdc2 solid;
-	font: normal 1.165em 'MuseoSlab500', Helvetica, Sans-serif;
+	font: normal 1em 'MuseoSlab500', Helvetica, Sans-serif;
 }
 
 .instructions div {
