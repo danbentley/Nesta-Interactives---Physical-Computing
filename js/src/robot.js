@@ -26,6 +26,7 @@ define(['jquery', 'lib/jquery.transit.min'], function() {
 
 	Robot.prototype.move = function() {
 		var newPosition = this.getPositionForDirection(this.direction);
+		console.log('this.direction: ' + this.direction);
 		var $cell = this.getCell();
 		if (this.doesCellContainGoalInDirection($cell, this.direction)) {
 			$(window).trigger('robot.wins');
@@ -38,8 +39,8 @@ define(['jquery', 'lib/jquery.transit.min'], function() {
 			$('.robot').transition(transition, $.proxy(function() {
 				this.init();
 			}, this));
-		}
-	}
+		} 
+	};
 
 	Robot.prototype.up = function() {
 		if (!this.shouldTurnToDirection('up')) return;
@@ -140,6 +141,9 @@ define(['jquery', 'lib/jquery.transit.min'], function() {
 
 	Robot.prototype.canMoveToPosition = function(position, direction) {
 
+		console.log(this.grid.dimensions);
+		console.log(position);
+		console.log(direction);
 		if (!this.grid.isPositionWithinBounds(position)) return false;
 
 		var cell = this.getCell();
