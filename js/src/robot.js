@@ -8,6 +8,7 @@ define(['jquery', 'lib/jquery.transit.min'], function() {
 		this.addListeners();
 		this.directions = ['up', 'right', 'down', 'left'];
 		this.direction = 'up';
+		this.itemCount = 0;
 	}
 
 	Robot.prototype.addListeners = function() {
@@ -183,6 +184,7 @@ define(['jquery', 'lib/jquery.transit.min'], function() {
 	};
 
 	Robot.prototype.collectItem = function() {
+		this.itemCount++;
 		var $cell = this.getCell();
 		$cell.find('span.item').remove();
 	};
