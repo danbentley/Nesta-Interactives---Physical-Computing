@@ -123,6 +123,7 @@ textarea {
 	float: left;
 	border-right: 1px #d1cdc2 solid;
 	overflow: hidden;
+	position: relative;
 }
 
 .interactive > span {
@@ -146,10 +147,30 @@ textarea {
 span { display: block; }
 
 
+/* MESSAGE */
+.message {
+	position: absolute;
+	top: 107px;
+	left: 20%;
+	z-index: 20;
+	background: #fff;
+	border: 1px #d1cdc2 solid;
+	box-shadow: 0 0 5px #d1cdc2;
+	color: #656565;
+	margin: 0;
+	height: 72px;
+	width: 60%;
+	padding: 20px 0;
+	text-align: center;
+	font: normal 3em/1.5 'MuseoSlab500', Helvetica, Sans-serif;
+	display:none;
+}
 
+.complete .message {
+	display: block;
+}
 
 /* ROBOT */
-
 .robot {
 	background: #6ac071;
 	display: block;
@@ -257,6 +278,10 @@ span.item {
 	border-radius: 5px;
 }
 
+.complete span.item {
+	opacity: 0.15;
+}
+
 
 
 
@@ -277,6 +302,10 @@ span.item {
 	border-radius: 4px;
 	opacity: 0.5;
 	z-index: 10;
+}
+
+.complete .wall {
+	opacity: 0.05;
 }
 
 .wall-right .wall-right {

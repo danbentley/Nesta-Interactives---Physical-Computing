@@ -4,7 +4,6 @@ define(['src/grid', 'src/robot', 'src/maze'], function(Grid, Robot) {
 		this.robot;
 		this.grid;
 		this.$commands = $('#commands');
-		this.validCommands = ['up', 'down', 'left', 'right', 'move'];
 	}
 
 	App.prototype.init = function() {
@@ -56,7 +55,7 @@ define(['src/grid', 'src/robot', 'src/maze'], function(Grid, Robot) {
 		$('form#code').on('submit', $.proxy(function(e) {
 
 			var commands = this.parseCommandString(this.$commands.val())
-			this.executeCommands(commands);
+			this.robot.executeCommands(commands);
 
 			e.preventDefault();
 		}, this));
@@ -86,25 +85,10 @@ define(['src/grid', 'src/robot', 'src/maze'], function(Grid, Robot) {
 		return parsedCommands;
 	};
 
-	App.prototype.executeCommands = function(commands) {
-
-		var intervalId;
-
-		clearInterval(intervalId);
-		intervalId = setInterval($.proxy(function() {
-			if (commands.length === 0) {
-				clearInterval(intervalId);
-				return;
-			}
-			var command = commands.shift();
-			if (this.validCommands.indexOf(command) > -1) {
-				this.robot[command]();
-			}
-		}, this), 500);
-	};
 
 	App.prototype.end = function() {
-		console.log('Robot wins!');
+		$('#grid').addClass('complete');
+		this.robot.dance();
 	};
 
 	return App;

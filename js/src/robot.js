@@ -9,6 +9,7 @@ define(['jquery', 'lib/jquery.transit.min'], function() {
 		this.directions = ['up', 'right', 'down', 'left'];
 		this.direction = 'up';
 		this.itemCount = 0;
+		this.validCommands = ['up', 'down', 'left', 'right', 'move'];
 	}
 
 	Robot.prototype.addListeners = function() {
@@ -65,6 +66,22 @@ define(['jquery', 'lib/jquery.transit.min'], function() {
 		if (!this.shouldTurnToDirection('right')) return;
 		var direction = 'right';
 		this.turnToDirection(direction);
+	};
+
+	Robot.prototype.dance = function() {
+		this.executeCommands([
+			'up',
+			'down',
+			'left',
+			'right',
+			'left',
+			'right',
+			'up',
+			'left',
+			'up',
+			'left',
+			'down'
+		]);
 	};
 
 	Robot.prototype.getCell = function() {
@@ -187,6 +204,23 @@ define(['jquery', 'lib/jquery.transit.min'], function() {
 		this.itemCount++;
 		var $cell = this.getCell();
 		$cell.find('span.item').remove();
+	};
+
+	Robot.prototype.executeCommands = function(commands) {
+
+		var intervalId;
+
+		clearInterval(intervalId);
+		intervalId = setInterval($.proxy(function() {
+			if (commands.length === 0) {
+				clearInterval(intervalId);
+				return;
+			}
+			var command = commands.shift();
+			if (this.validCommands.indexOf(command) > -1) {
+				this[command]();
+			}
+		}, this), 500);
 	};
 
 	return Robot;
