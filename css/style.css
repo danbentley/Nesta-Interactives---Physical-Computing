@@ -58,15 +58,43 @@ body {
 	padding: 0 20px;
 }
 
-.instructions p {
+p, .instructions p {
 	font: normal 0.95em/1.5 'MuseoSlab500', Helvetica, Sans-serif;
 	margin: 0 0 1.5em;
 }
 
+h3 {
+/*	padding: 20px 20px 15px;
+	margin: 0 0 0.8em; */
+	font: normal 1.625em 'MuseoSlab500', Helvetica, Sans-serif
+}
 
 
 
 /* INTERACTIVE-SPECIFIC STYLES */
+
+
+
+/* CONTROLS */
+.control {
+	background: #575656;
+	color: #fff;
+	text-decoration: none;
+	font-size:0.8em;
+	line-height: 1.833;
+	display: inline-block;
+	overflow: hidden;
+	border-radius: 15px;
+}
+
+.up, .down, .left, .right {
+	width: 22px;
+	text-indent: -100px;
+}
+
+.move {
+	padding: 0 10px;
+}
 
 
 /* COMMAND FORM */
@@ -78,9 +106,10 @@ body {
 textarea {
 	border: 1px #d2ccc3 solid;
 	background: #f4f0ed;
+	resize: none;
 	color: #656565;
-	width: 223px;
-	height: 95px;
+	width: 201px;
+	height: 45px;
 	margin: 0;
 	padding: 10px;
 	display: block;
@@ -144,31 +173,43 @@ textarea {
 	border-bottom: none;
 }
 
-span { display: block; }
+span {
+	display: block;
+}
 
 
 /* MESSAGE */
 .message {
 	position: absolute;
-	top: 107px;
-	left: 20%;
+	top: 90px;
+	left: 22%;
 	z-index: 20;
 	background: #fff;
 	border: 1px #d1cdc2 solid;
 	box-shadow: 0 0 5px #d1cdc2;
 	color: #656565;
 	margin: 0;
-	height: 72px;
-	width: 60%;
+	height: 105px;
+	width: 50%;
 	padding: 20px 0;
 	text-align: center;
-	font: normal 3em/1.5 'MuseoSlab500', Helvetica, Sans-serif;
+/*	font: normal 3em/1.5 'MuseoSlab500', Helvetica, Sans-serif; */
 	display:none;
+}
+
+.message h3 {
+	margin: 1em 0 0.15em;
+}
+
+.message p strong {
+	color: #f2675e;
+	font-weight: normal;
 }
 
 .complete .message {
 	display: block;
 }
+
 
 /* ROBOT */
 .robot {

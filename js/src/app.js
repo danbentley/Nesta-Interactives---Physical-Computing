@@ -28,27 +28,27 @@ define(['src/grid', 'src/robot', 'src/maze'], function(Grid, Robot) {
 		}, this));
 
 		$('a.up').on('click', $.proxy(function(e) {
-			this.$commands.val(this.$commands.val() + 'up\n');
+			this.addCommand('up');
 			e.preventDefault();
 		}, this));
 
 		$('a.down').on('click', $.proxy(function(e) {
-			this.$commands.val(this.$commands.val() + 'down\n');
+			this.addCommand('down');
 			e.preventDefault();
 		}, this));
 
 		$('a.left').on('click', $.proxy(function(e) {
-			this.$commands.val(this.$commands.val() + 'left\n');
+			this.addCommand('left');
 			e.preventDefault();
 		}, this));
 
 		$('a.right').on('click', $.proxy(function(e) {
-			this.$commands.val(this.$commands.val() + 'right\n');
+			this.addCommand('right');
 			e.preventDefault();
 		}, this));
 
 		$('a.move').on('click', $.proxy(function(e) {
-			this.$commands.val(this.$commands.val() + 'move(1)\n');
+			this.addCommand('move(1)');
 			e.preventDefault();
 		}, this));
 
@@ -59,6 +59,11 @@ define(['src/grid', 'src/robot', 'src/maze'], function(Grid, Robot) {
 
 			e.preventDefault();
 		}, this));
+	};
+
+	App.prototype.addCommand = function(command) {
+		this.$commands.val(this.$commands.val() + command + '\n');
+		this.$commands.scrollTop(this.$commands.scrollTop() + 30);
 	};
 
 	App.prototype.parseCommandString = function(commandString) {
@@ -85,9 +90,8 @@ define(['src/grid', 'src/robot', 'src/maze'], function(Grid, Robot) {
 		return parsedCommands;
 	};
 
-
 	App.prototype.end = function() {
-		$('.message').append('<p>You collected ' + this.robot.itemCount + ' items</p>');
+		$('.message').append('<p>You collected <strong>' + this.robot.itemCount + '</strong> items</p>');
 		$('#grid').addClass('complete');
 		this.robot.dance();
 	};

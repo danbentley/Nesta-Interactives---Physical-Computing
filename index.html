@@ -1,3 +1,5 @@
+<!doctype html>
+
 <html>
 	<head>
 		<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8">
@@ -9,7 +11,7 @@
 		<div class="interactive-wrapper">
 			
 			<div id="grid" class="physical-computing interactive">
-				<div class="message">Maze completed!!</div>
+				<div class="message"><h3>Maze completed!!</h3></div>
 			</div>
 
 			<div class="instructions">
@@ -19,13 +21,15 @@
 				<div>
 					<p>Collect your friends and complete the maze using input and running your code.</p>
 					
-					<a href="#" class="up">&uarr;</a>
-					<a href="#" class="down">&darr;</a>
-					<a href="#" class="left">&larr;</a>
-					<a href="#" class="right">&rarr;</a>
-					<a href="#" class="move">Move</a>
-					<label for="commands">Commands</label>
-					
+					<p>
+						Controls:
+						<a href="#" class="control up">Up</a>
+						<a href="#" class="control down">Down</a>
+						<a href="#" class="control left">Left</a>
+						<a href="#" class="control right">Right</a>
+						<a href="#" class="control move">Move</a>
+					</p>
+										
 					<form id="code" class="command-form">
 						<textarea name="commands" id="commands" rows="8" cols="40"></textarea>
 						<input type="submit" class="run-code" value="Run your code!"/>
