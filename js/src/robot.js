@@ -36,7 +36,6 @@ define(['jquery', 'lib/jquery.transit.min'], function() {
 		}
 		if (this.canMoveToPosition(newPosition, this.direction)) {
 			this.position = newPosition;
-			this.collectItem();
 
 			var transition = this.getTransitionForDirection(this.direction);
 			$('.robot').transition(transition, $.proxy(function() {
