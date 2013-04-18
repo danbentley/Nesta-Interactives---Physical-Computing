@@ -59,6 +59,10 @@ define(['src/grid', 'src/robot', 'src/maze'], function(Grid, Robot) {
 
 			e.preventDefault();
 		}, this));
+
+		$(window).on('commands.complete', $.proxy(function() {
+			this.$commands.val('');
+		}, this));
 	};
 
 	App.prototype.addCommand = function(command) {

@@ -10,6 +10,7 @@ define(['jquery', 'lib/jquery.transit.min'], function() {
 		this.direction = 'up';
 		this.itemCount = 0;
 		this.validCommands = ['up', 'down', 'left', 'right', 'move'];
+		this.executeCommandsInterval = null;
 	}
 
 	Robot.prototype.addListeners = function() {
@@ -208,12 +209,11 @@ define(['jquery', 'lib/jquery.transit.min'], function() {
 
 	Robot.prototype.executeCommands = function(commands) {
 
-		var intervalId;
-
-		clearInterval(intervalId);
-		intervalId = setInterval($.proxy(function() {
+		clearInterval(this.executeCommandsInterval);
+		this.executeCommandsInterval = setInterval($.proxy(function() {
 			if (commands.length === 0) {
-				clearInterval(intervalId);
+				clearInterval(this.executeCommandsInterval);
+				$(window).trigger('commands.complete');
 				return;
 			}
 			var command = commands.shift();
