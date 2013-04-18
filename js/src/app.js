@@ -97,6 +97,9 @@ define(['src/grid', 'src/robot', 'src/maze'], function(Grid, Robot) {
 	App.prototype.end = function() {
 		$('.message').append('<p>You collected <strong>' + this.robot.itemCount + '</strong> items</p>');
 		$('#grid').addClass('complete');
+		$('p.controls, form#code').addClass('disabled');
+		$('#commands, input.run-code').attr('disabled', 'disabled').attr('readonly', 'readonly');
+		$('#commands').val('');
 	};
 
 	return App;
