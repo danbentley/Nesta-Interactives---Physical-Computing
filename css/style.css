@@ -111,8 +111,9 @@ h3 {
 }
 
 
-/* COMMAND FORM */
 
+
+/* COMMAND FORM */
 .command-form {
 	margin: 0;
 }
@@ -156,6 +157,30 @@ textarea {
 	background: #f4f0ed;
 }
 
+
+/* DISABLED CONTROLS & COMMAND FORM */
+.controls.disabled {
+	color: #d9d3d0;
+	opacity:0.25;
+}
+
+.disabled .control {
+	background-color: #ece7e3;
+	cursor: default;
+}
+
+.disabled textarea {
+	opacity:0.25;
+}
+
+.disabled .run-code {
+	opacity:0.25;
+	cursor: default;
+	color: #d9d3d0;
+}
+ .disabled .run-code:hover {
+ 	background: #fff;
+ }
 
 
 /* CELLS */
