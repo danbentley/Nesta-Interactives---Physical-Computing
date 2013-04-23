@@ -98,7 +98,7 @@ h3 {
 .up, .down, .left, .right {
 	width: 20px;
 	text-indent: -100px;
-	background: #575656 url('../images/command-icons.png') no-repeat;
+	background: #575656 url('../img/command-icons.png') no-repeat;
 }
 
 .up { background-position: 0 -1px; }
