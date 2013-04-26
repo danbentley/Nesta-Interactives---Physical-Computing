@@ -1,4 +1,4 @@
-define(['jquery'], function() {
+define([], function() {
 	return {
 		up: [
 			{ x: 3, y: 8 },
