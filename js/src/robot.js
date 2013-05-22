@@ -1,4 +1,4 @@
-define(['lib/jquery.transit.min'], function() {
+define(['jquery', 'transit'], function($) {
 
 	function Robot(grid) {
 		this.position = { x:0, y:0 };

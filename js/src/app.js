@@ -1,4 +1,4 @@
-define(['src/grid', 'src/robot', 'src/maze'], function(Grid, Robot) {
+define(['jquery', 'src/grid', 'src/robot', 'src/maze'], function($, Grid, Robot) {
 
 	function App() {
 		this.robot;
